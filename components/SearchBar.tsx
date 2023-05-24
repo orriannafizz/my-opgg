@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Summoner } from '../interfaces/Summoner';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,7 +9,6 @@ import Grid from '@mui/material/Grid';
 
 interface SummonerInfoProps {
   summoner: Summoner | null;
-
   setSummoner: React.Dispatch<React.SetStateAction<Summoner | null>>;
 }
 

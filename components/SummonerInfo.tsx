@@ -2,7 +2,6 @@ import { Inter } from 'next/font/google';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Summoner } from '../interfaces/Summoner';
 interface SummonerInfoProps {
   summoner: Summoner | null;
 }

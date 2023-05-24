@@ -1,4 +1,4 @@
-interface Rank {
+declare interface Rank {
   leagueId: string;
   queueType: string;
   tier: string;
@@ -14,7 +14,7 @@ interface Rank {
   hotStreak: boolean;
 }
 
-export interface Summoner {
+declare interface Summoner {
   id: string;
   accountId: string;
   puuid: string;

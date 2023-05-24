@@ -1,5 +1,4 @@
 import SummonerInfo from '../../components/SummonerInfo';
-import { Summoner } from '../../interfaces/Summoner';
 import { useState } from 'react';
 import SearchBar from '../../components/SearchBar';
 export default function Home() {

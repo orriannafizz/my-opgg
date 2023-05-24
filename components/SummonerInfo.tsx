@@ -24,7 +24,7 @@ const SummonerInfo = () => {
       )
       .then((res) => {
         setSummoner(res.data);
-        //  console.log(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

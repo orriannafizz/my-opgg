@@ -12,6 +12,12 @@ add NEXT_PUBLIC_API_KEY in .env.local
 yarn
 ```
 
+or
+
+```
+npm install
+```
+
 ## Getting Start
 
 ```

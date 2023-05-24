@@ -1,7 +1,13 @@
-import { Inter } from 'next/font/google';
 import SummonerInfo from '../../components/SummonerInfo';
-const inter = Inter({ subsets: ['latin'] });
-
+import { useState } from 'react';
+import SearchBar from '../../components/SearchBar';
 export default function Home() {
-  return <SummonerInfo />;
+  const [summoner, setSummoner] = useState<Summoner | null>(null);
+
+  return (
+    <div className='mt-10 flex flex-col justify-center items-center'>
+      <SearchBar summoner={summoner} setSummoner={setSummoner} />
+      <SummonerInfo summoner={summoner} />
+    </div>
+  );
 }

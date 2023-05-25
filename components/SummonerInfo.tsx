@@ -16,7 +16,7 @@ const SummonerInfo: React.FC<SummonerInfoProps> = ({ summoner }) => {
     <>
       {summoner && (
         <Grid container spacing={2} justifyContent='center'>
-          <Grid item xs={8} sm={9} md={10}>
+          <Grid item>
             <Link href={`summoner/${summoner.puuid}`}>
               <Card className='mt-10'>
                 <CardHeader
@@ -38,15 +38,37 @@ const SummonerInfo: React.FC<SummonerInfoProps> = ({ summoner }) => {
                   }}
                 />
                 {summoner.ranks[0] && (
-                  <CardContent>
-                    <div className='flex flex-col items-start'>
-                      <Image
-                        src='/master.png'
-                        alt={summoner.ranks[0].tier}
-                        width={300}
-                        height={300}></Image>
-                    </div>
-                  </CardContent>
+                  <>
+                    <CardContent>
+                      <div className='flex flex-col items-center'>
+                        <Image
+                          src={`/${summoner.ranks[0].tier}.png`}
+                          alt={summoner.ranks[0].tier}
+                          width={100}
+                          height={100}></Image>
+                        <p>
+                          {summoner.ranks[0].tier} {summoner.ranks[0].rank}
+                        </p>
+                      </div>
+                    </CardContent>
+                    <CardContent>
+                      <div className='flex flex-col items-start text-green-500'>
+                        <p className='text-green-500'>
+                          Wins:{' '}
+                          <span style={{ color: 'GREEN' }}>
+                            {summoner.ranks[0].wins}
+                          </span>
+                        </p>
+                        <p>
+                          Losses:{' '}
+                          <span style={{ color: 'RED' }}>
+                            {' '}
+                            {summoner.ranks[0].losses}
+                          </span>
+                        </p>
+                      </div>
+                    </CardContent>
+                  </>
                 )}
               </Card>
             </Link>

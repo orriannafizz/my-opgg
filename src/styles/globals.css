@@ -13,12 +13,3 @@
   flex-direction: row;
   align-items: center;
 }
-@media screen and (min-width: 640px) {
-  .show-on-large {
-    display: block;
-  }
-}
-
-.show-on-large {
-  display: none;
-}

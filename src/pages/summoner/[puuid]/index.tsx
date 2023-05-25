@@ -31,8 +31,11 @@ export default function Page() {
       });
   };
   useEffect(() => {
-    searchSummonerByPuuid();
-  }, []);
+    if (puuid) {
+      searchSummonerByPuuid();
+    }
+  }, [puuid]);
+
   useEffect(() => {
     console.log(summoner);
   }, [summoner]);

@@ -4,27 +4,80 @@ import Link from 'next/link';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
-import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
+import { use, useEffect, useState } from 'react';
+import axios from 'axios';
 
-const Match = () => {
-  const marchId: string = 'KR_6508434441';
+interface MatchProps {
+  summoner: Summoner | null;
+}
+const Match: React.FC<MatchProps> = ({ summoner }) => {
+  const [match, setMatch] = useState<Match | null>(null);
+  const [place, setPlace] = useState<number | undefined>(0); // place in res.data
+  const fetchMatch = () => {
+    axios
+      .get(
+        `https://sea.api.riotgames.com/lol/match/v5/matches/TW2_74455132?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+      )
+      .then((res) => {
+        console.log(res.data);
+        setMatch(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchMatch();
+  }, []);
+
+  const findPlace = (match: Match) => {
+    for (let i = 0; i < 10; i++) {
+      if (match.metadata.participants[i] === summoner?.puuid) {
+        return i;
+      }
+    }
+  };
+  const calculateTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    return { minutes, seconds };
+  };
+
+  useEffect(() => {
+    if (summoner && match) {
+      setPlace(findPlace(match));
+    }
+  }, [summoner, match]);
+
+  // for debug
+  useEffect(() => {
+    console.log(place);
+  }, [place]);
   return (
-    <Grid container spacing={2} justifyContent='center'>
-      <Grid item>
-        <Card className='mt-10'>
-          <CardHeader
-            action={<IconButton aria-label='' />}
-            title={'a'}
-            subheader={`Lv. `}
-            titleTypographyProps={{ className: 'card-header-content' }}
-            subheaderTypographyProps={{
-              className: 'card-header-content',
-            }}
-          />
-        </Card>
+    match && (
+      <Grid container spacing={2} justifyContent='center'>
+        <Grid item>
+          <Card className='mt-10'>
+            <CardHeader
+              action={<IconButton aria-label='' />}
+              title={match.info.gameMode}
+              subheader={
+                calculateTime(match.info.gameDuration).minutes +
+                ':' +
+                calculateTime(match.info.gameDuration).seconds
+              }
+              titleTypographyProps={{ className: 'card-header-content' }}
+              subheaderTypographyProps={{
+                className: 'card-header-content',
+              }}
+            />
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    )
   );
 };
 

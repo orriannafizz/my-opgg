@@ -15,7 +15,7 @@ const SummonerPage: React.FC<SummonerPageProps> = ({ summoner }) => {
   return (
     <>
       <SummonerInfo summoner={summoner} />
-      <Match />
+      <Match summoner={summoner} />
     </>
   );
 };

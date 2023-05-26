@@ -18,17 +18,16 @@ const SearchBar: React.FC<SummonerInfoProps> = ({ summoner, setSummoner }) => {
   const [searchName, setSearchName] = React.useState<string>('');
 
   const searchSummoner = () => {
-    const encodeStr = encodeURI(searchName);
     axios
-      .get(
-        `https://tw2.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeStr}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-      )
+      .get(`/api/summoner/by-name`, {
+        params: { searchName },
+      })
       .then((res) => {
         const summonerData = res.data;
-        return axios
-          .get(
-            `https://tw2.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerData.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-          )
+        axios
+          .get(`api/summoner/rank`, {
+            params: { id: summonerData.id },
+          })
           .then((res) => {
             setSummoner({ ...summonerData, ranks: res.data });
           });

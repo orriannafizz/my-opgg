@@ -10,15 +10,18 @@ import axios from 'axios';
 
 interface MatchProps {
   summoner: Summoner | null;
+  matchId: string;
 }
-const Match: React.FC<MatchProps> = ({ summoner }) => {
+const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   const [match, setMatch] = useState<Match | null>(null);
   const [place, setPlace] = useState<number | undefined>(0); // place in res.data
   const fetchMatch = () => {
     axios
-      .get(
-        `https://sea.api.riotgames.com/lol/match/v5/matches/TW2_74455132?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-      )
+      .get(`/api/match`, {
+        params: {
+          matchId,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setMatch(res.data);

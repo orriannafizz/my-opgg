@@ -6,7 +6,6 @@ import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
-
 interface SummonerInfoProps {
   summoner: Summoner | null;
 }
@@ -52,16 +51,16 @@ const SummonerInfo: React.FC<SummonerInfoProps> = ({ summoner }) => {
                       </div>
                     </CardContent>
                     <CardContent>
-                      <div className='flex flex-col items-start text-green-500'>
-                        <p className='text-green-500'>
+                      <div className='flex flex-col items-start'>
+                        <p>
                           Wins:{' '}
-                          <span style={{ color: 'GREEN' }}>
+                          <span className='text-green-600'>
                             {summoner.ranks[0].wins}
                           </span>
                         </p>
                         <p>
                           Losses:{' '}
-                          <span style={{ color: 'RED' }}>
+                          <span className=' text-red-500'>
                             {' '}
                             {summoner.ranks[0].losses}
                           </span>

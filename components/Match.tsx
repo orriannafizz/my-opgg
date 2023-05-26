@@ -17,7 +17,11 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   const [place, setPlace] = useState<number | undefined>(0); // place in res.data
   const fetchMatch = () => {
     axios
-      .get(`/api/match?matchId=${matchId}`)
+      .get(`/api/match`, {
+        params: {
+          matchId,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setMatch(res.data);

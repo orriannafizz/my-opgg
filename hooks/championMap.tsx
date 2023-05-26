@@ -22,7 +22,7 @@ const useChampionMap = () => {
     const tempMap = new Map<string, string>();
     const champions = championData.data as { [key: string]: Champion };
     for (const champ of Object.values(champions)) {
-      tempMap.set(champ.key, champ.name);
+      tempMap.set(champ.key, champ.id);
     }
     setChampionMap(tempMap);
   }, []);

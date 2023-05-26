@@ -10,9 +10,11 @@ const Matches: React.FC<MatchesProps> = ({ summoner }) => {
   const [matches, setMatches] = useState<string[] | null>(null);
   const fetchMatches = () => {
     axios
-      .get(
-        `https://sea.api.riotgames.com/lol/match/v5/matches/by-puuid/${summoner?.puuid}/ids?start=0&count=10&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-      )
+      .get(`/api/summoner/find-matches`, {
+        params: {
+          puuid: summoner?.puuid,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setMatches(res.data);

@@ -17,7 +17,8 @@ interface SummonerInfoProps {
 const SearchBar: React.FC<SummonerInfoProps> = ({ summoner, setSummoner }) => {
   const [searchName, setSearchName] = React.useState<string>('');
 
-  const searchSummoner = () => {
+  const searchSummoner = (event: React.FormEvent) => {
+    event.preventDefault(); // This will prevent the default form submission which causes a page refresh
     axios
       .get(`/api/summoner/by-name`, {
         params: { searchName },
@@ -42,25 +43,23 @@ const SearchBar: React.FC<SummonerInfoProps> = ({ summoner, setSummoner }) => {
     console.log(summoner);
   }, [summoner]);
 
-  const handleClick = () => {
-    searchSummoner();
-  };
-
   return (
     <Grid container className='justify-center items-center'>
       <Grid item sm={6}>
-        <Stack spacing={2} direction='row' alignItems='center'>
-          <TextField
-            label='Summoner'
-            variant='outlined'
-            value={searchName}
-            fullWidth
-            onChange={(e) => setSearchName(e.target.value)}
-          />
-          <Button variant='outlined' onClick={handleClick}>
-            Search
-          </Button>
-        </Stack>
+        <form onSubmit={searchSummoner}>
+          <Stack spacing={2} direction='row' alignItems='center'>
+            <TextField
+              label='Summoner'
+              variant='outlined'
+              value={searchName}
+              fullWidth
+              onChange={(e) => setSearchName(e.target.value)}
+            />
+            <Button variant='outlined' type='submit'>
+              Search
+            </Button>
+          </Stack>
+        </form>
       </Grid>
       <ToastContainer position='bottom-right' autoClose={3000} />
     </Grid>

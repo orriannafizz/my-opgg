@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardContent from '@mui/material/CardContent';
 import Image from 'next/image';
-
 import useChampionMap from '../hooks/championMap';
+import Items from './MatchInfo/Items';
 interface MatchProps {
   summoner: Summoner | null;
   matchId: string;
@@ -22,6 +22,7 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   const [kills, setKills] = useState<number | undefined>();
   const [deaths, setDeaths] = useState<number | undefined>();
   const [assists, setAssists] = useState<number | undefined>();
+  const [items, setItems] = useState<number[] | undefined>();
   // TODO: Change Map to SQL
 
   const championMap = useChampionMap();
@@ -48,9 +49,6 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   const findPlaceAndSetTeam = (match: Match) => {
     for (let i = 0; i < 10; i++) {
       if (match.metadata.participants[i] === summoner?.puuid) {
-        setTeam(i < 5 ? 0 : 1);
-        setIsWin(match.info.teams[i < 5 ? 0 : 1].win);
-
         return i;
       }
     }
@@ -65,17 +63,28 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   useEffect(() => {
     if (summoner && match) {
       setPlace(findPlaceAndSetTeam(match));
+      setTeam(place! < 5 ? 0 : 1);
+      setIsWin(match.info.teams[place! < 5 ? 0 : 1].win);
       setChampionId(match.info.participants[place!].championId);
       setKills(match.info.participants[place!].kills);
       setDeaths(match.info.participants[place!].deaths);
       setAssists(match.info.participants[place!].assists);
+      setItems([
+        match.info.participants[place!].item0,
+        match.info.participants[place!].item1,
+        match.info.participants[place!].item2,
+        match.info.participants[place!].item3,
+        match.info.participants[place!].item4,
+        match.info.participants[place!].item5,
+        match.info.participants[place!].item6,
+      ]);
     }
   }, [summoner, match]);
 
   // for debug
   useEffect(() => {
-    console.log(place);
-  }, [place]);
+    console.log(items);
+  }, [items]);
   useEffect(() => {
     if (championMap && championId)
       setChampionName(championMap?.get(championId!.toString()));
@@ -113,17 +122,20 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
                   )}
                 </div>
 
-                <Image
-                  src={`http://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/${championName}.png`}
-                  width={50}
-                  height={50}
-                  alt={championName as string}
-                  className=' rounded-full'></Image>
-                <div className='w-[100px] text-center'>
+                {championName && (
+                  <Image
+                    src={`http://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/${championName}.png`}
+                    width={50}
+                    height={50}
+                    alt={championName as string}
+                    className='rounded-full'></Image>
+                )}
+                <div className='w-[150px] text-center mb-0'>
                   <p className=' font-semibold'>
                     {kills} / {deaths} / {assists}
                   </p>
                 </div>
+                <div>{items && <Items items={items}></Items>}</div>
               </div>
             </CardContent>
           </Card>

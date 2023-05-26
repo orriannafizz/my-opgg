@@ -17,9 +17,7 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   const [place, setPlace] = useState<number | undefined>(0); // place in res.data
   const fetchMatch = () => {
     axios
-      .get(
-        `https://sea.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-      )
+      .get(`/api/match?matchId=${matchId}`)
       .then((res) => {
         console.log(res.data);
         setMatch(res.data);

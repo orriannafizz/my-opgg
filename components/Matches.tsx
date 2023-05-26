@@ -11,7 +11,7 @@ const Matches: React.FC<MatchesProps> = ({ summoner }) => {
   const fetchMatches = () => {
     axios
       .get(
-        `https://sea.api.riotgames.com/lol/match/v5/matches/by-puuid/hEn8vjIZnyTEkIXnbMob2kUEr5wFj014_HHQzZEbOggQjm08gNyrcnWWA_2PYOL9AVyj5MI1OYJkOA/ids?start=0&count=20&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+        `https://sea.api.riotgames.com/lol/match/v5/matches/by-puuid/hEn8vjIZnyTEkIXnbMob2kUEr5wFj014_HHQzZEbOggQjm08gNyrcnWWA_2PYOL9AVyj5MI1OYJkOA/ids?start=0&count=10&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
       )
       .then((res) => {
         console.log(res.data);

@@ -1,41 +1,51 @@
 import axios from 'axios';
-import Image from 'next/image';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import SummonerPage from '../../../../components/SummonerPage';
-export default function Page() {
-  const router = useRouter();
-  const { puuid } = router.query;
-  const [summoner, setSummoner] = useState<Summoner | null>(null);
 
-  const searchSummonerByPuuid = () => {
-    axios
-      .get(`/api/summoner/by-puuid`, {
-        params: { puuid },
-      })
-      .then((res) => {
-        const summonerData = res.data;
-        axios
-          .get(`/api/summoner/rank`, { params: { id: summonerData.id } })
-          .then((res) => {
-            setSummoner({ ...summonerData, ranks: res.data });
-          });
-      })
-      .catch((err) => {
-        toast.error('User not found');
-        setSummoner(null);
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    if (puuid) {
-      searchSummonerByPuuid();
-    }
-  }, [puuid]);
-
-  useEffect(() => {
-    console.log(summoner);
-  }, [summoner]);
-  return <SummonerPage summoner={summoner} />;
+interface PageProps {
+  summoner: Summoner | null;
 }
+
+const Page: React.FC<PageProps> = ({ summoner }) => {
+  if (!summoner) {
+    toast.error('User not found');
+    return null;
+  }
+
+  return <SummonerPage summoner={summoner} />;
+};
+
+export const getServerSideProps: GetServerSideProps<PageProps> = async (
+  context
+) => {
+  const { puuid } = context.query;
+  try {
+    const res1 = await axios.get<Summoner>(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/summoner/by-puuid`,
+      {
+        params: { puuid },
+      }
+    );
+
+    const summonerData = res1.data;
+
+    const res2 = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/summoner/rank`,
+      {
+        params: { id: summonerData.id },
+      }
+    );
+
+    const summoner = { ...summonerData, ranks: res2.data };
+
+    return { props: { summoner } };
+  } catch (err) {
+    console.log(err);
+
+    return { props: { summoner: null } };
+  }
+};
+
+export default Page;

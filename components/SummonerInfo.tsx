@@ -30,10 +30,6 @@ const SummonerInfo: React.FC<SummonerInfoProps> = ({ summoner }) => {
                 action={<IconButton aria-label='' />}
                 title={summoner.name}
                 subheader={`Lv. ${summoner.summonerLevel}`}
-                titleTypographyProps={{ className: 'card-header-content' }}
-                subheaderTypographyProps={{
-                  className: 'card-header-content',
-                }}
               />
               {summoner.ranks[0] && (
                 <>

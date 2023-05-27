@@ -17,15 +17,8 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   const [place, setPlace] = useState<number | undefined>(0);
   const [team, setTeam] = useState<number | undefined>();
   const [isWin, setIsWin] = useState<boolean | undefined>();
-  const [championId, setChampionId] = useState<number | undefined>();
-  const [championName, setChampionName] = useState<string | undefined>();
-  const [kills, setKills] = useState<number | undefined>();
-  const [deaths, setDeaths] = useState<number | undefined>();
-  const [assists, setAssists] = useState<number | undefined>();
   const [items, setItems] = useState<number[] | undefined>();
-  // TODO: Change Map to SQL
 
-  const championMap = useChampionMap();
   const fetchMatch = () => {
     axios
       .get(`/api/match`, {
@@ -65,10 +58,6 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
       setPlace(findPlaceAndSetTeam(match));
       setTeam(place! < 5 ? 0 : 1);
       setIsWin(match.info.teams[place! < 5 ? 0 : 1].win);
-      setChampionId(match.info.participants[place!].championId);
-      setKills(match.info.participants[place!].kills);
-      setDeaths(match.info.participants[place!].deaths);
-      setAssists(match.info.participants[place!].assists);
       setItems([
         match.info.participants[place!].item0,
         match.info.participants[place!].item1,
@@ -85,10 +74,7 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   useEffect(() => {
     console.log(items);
   }, [items]);
-  useEffect(() => {
-    if (championMap && championId)
-      setChampionName(championMap?.get(championId!.toString()));
-  }, [championMap, championId]);
+
   return (
     match && (
       <Grid container spacing={2} justifyContent='center'>
@@ -106,10 +92,6 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
                     : '') +
                   calculateTime(match.info.gameDuration).seconds
                 }
-                titleTypographyProps={{ className: 'card-header-content' }}
-                subheaderTypographyProps={{
-                  className: 'card-header-content',
-                }}
               />
             </div>
             <CardContent>
@@ -122,17 +104,20 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
                   )}
                 </div>
 
-                {championName && (
-                  <Image
-                    src={`http://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/${championName}.png`}
-                    width={50}
-                    height={50}
-                    alt={championName as string}
-                    className='rounded-full'></Image>
-                )}
+                <Image
+                  src={`http://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/${
+                    match.info.participants[place!].championName
+                  }.png`}
+                  width={50}
+                  height={50}
+                  alt={match.info.participants[place!].championName as string}
+                  className='rounded-full'></Image>
+
                 <div className='w-[150px] text-center mb-0'>
                   <p className=' font-semibold'>
-                    {kills} / {deaths} / {assists}
+                    {match.info.participants[place!].kills} /{' '}
+                    {match.info.participants[place!].deaths} /{' '}
+                    {match.info.participants[place!].assists}
                   </p>
                 </div>
                 <div>{items && <Items items={items}></Items>}</div>

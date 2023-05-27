@@ -18,7 +18,7 @@ const SearchBar: React.FC<SummonerInfoProps> = ({ summoner, setSummoner }) => {
   const [searchName, setSearchName] = React.useState<string>('');
 
   const searchSummoner = (event: React.FormEvent) => {
-    event.preventDefault(); // This will prevent the default form submission which causes a page refresh
+    event.preventDefault();
     axios
       .get(`/api/summoner/by-name`, {
         params: { searchName },

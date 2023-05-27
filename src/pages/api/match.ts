@@ -1,4 +1,3 @@
-// pages/api/riot.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
@@ -12,10 +11,8 @@ export default async function handler(
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: 'An error occurred while fetching data from the Riot API',
-      });
+    res.status(500).json({
+      error: 'An error occurred while fetching data from the Riot API',
+    });
   }
 }

@@ -20,7 +20,7 @@ const SearchBar: React.FC<SummonerInfoProps> = ({ summoner, setSummoner }) => {
   const searchSummoner = (event: React.FormEvent) => {
     event.preventDefault();
     axios
-      .get(`/api/summoner/by-name`, {
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/summoner/by-name`, {
         params: { searchName },
       })
       .then((res) => {

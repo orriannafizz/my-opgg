@@ -10,7 +10,7 @@ const Matches: React.FC<MatchesProps> = ({ summoner }) => {
   const [matches, setMatches] = useState<string[] | null>(null);
   const fetchMatches = () => {
     axios
-      .get(`/api/summoner/find-matches`, {
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/summoner/find-matches`, {
         params: {
           puuid: summoner?.puuid,
         },

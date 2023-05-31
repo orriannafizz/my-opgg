@@ -32,12 +32,12 @@ const Matches: React.FC<MatchesProps> = ({ summoner }) => {
     console.log(matches);
   }, [matches]);
   return (
-    <>
+    <div className='flex justify-center flex-col'>
       {matches &&
         matches.map((matchId: string) => (
           <Match key={matchId} summoner={summoner} matchId={matchId} />
         ))}
-    </>
+    </div>
   );
 };
 

@@ -9,6 +9,7 @@ import Image from 'next/image';
 import useChampionMap from '../hooks/championMap';
 import Items from './MatchInfo/Items';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import Participants from './MatchInfo/Participants';
 interface MatchProps {
   summoner: Summoner | null;
@@ -76,12 +77,22 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   useEffect(() => {
     console.log(items);
   }, [items]);
-
+  if (!summoner || !match || place === undefined) {
+    return (
+      <Grid container spacing={2} justifyContent='center'>
+        <Grid item>
+          <Card className='flex justify-center mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] '>
+            <CircularProgress />
+          </Card>
+        </Grid>
+      </Grid>
+    );
+  }
   return (
     match && (
       <Grid container spacing={2} justifyContent='center'>
         <Grid item>
-          <Card className='mt-2 2xl:w-[1000px] xl:w-[1000px] lg:w-[800px] md:w-[600px]  sm:w-[400px]   h-[120px] '>
+          <Card className='mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] '>
             <div className='w-[130px]'>
               <CardHeader
                 action={<IconButton aria-label='' />}
@@ -108,7 +119,10 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
 
                 <Image
                   src={`http://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/${
-                    match.info.participants[place!].championName
+                    match.info.participants[place!].championName ===
+                    'FiddleSticks'
+                      ? 'Fiddlesticks'
+                      : match.info.participants[place!].championName
                   }.png`}
                   width={50}
                   height={50}

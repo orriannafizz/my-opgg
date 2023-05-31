@@ -4,9 +4,10 @@ import Match from './Match';
 
 interface MatchesProps {
   summoner: Summoner | null;
+  region: string;
 }
 
-const Matches: React.FC<MatchesProps> = ({ summoner }) => {
+const Matches: React.FC<MatchesProps> = ({ summoner, region }) => {
   const [matches, setMatches] = useState<string[] | null>(null);
   const fetchMatches = () => {
     axios

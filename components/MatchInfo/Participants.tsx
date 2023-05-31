@@ -4,14 +4,19 @@ import Link from 'next/link';
 interface ParticipantsProps {
   info: Info;
   offset: number;
+  region: string;
 }
-const Participants: React.FC<ParticipantsProps> = ({ info, offset }) => {
+const Participants: React.FC<ParticipantsProps> = ({
+  info,
+  offset,
+  region,
+}) => {
   return (
     <div className='w-[150px] text-center mb-0 space-y-[1px] hidden lg:block'>
       {[...Array(5)].map((_, index) => (
         <div key={index + offset}>
           <Link
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/summoner/${
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/summoner/${region}/${
               info.participants[index + offset].puuid
             }`}
             className='flex items-center space-x-2'>

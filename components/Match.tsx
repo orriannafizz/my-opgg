@@ -14,8 +14,9 @@ import Participants from './MatchInfo/Participants';
 interface MatchProps {
   summoner: Summoner | null;
   matchId: string;
+  region: string;
 }
-const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
+const Match: React.FC<MatchProps> = ({ summoner, matchId, region }) => {
   const [match, setMatch] = useState<Match | null>(null);
   const [place, setPlace] = useState<number | undefined>(0);
   const [team, setTeam] = useState<number | undefined>();
@@ -137,8 +138,8 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
                   </p>
                 </div>
                 <div>{items && <Items items={items}></Items>}</div>
-                <Participants info={match.info} offset={0} />
-                <Participants info={match.info} offset={5} />
+                <Participants info={match.info} offset={0} region={region} />
+                <Participants info={match.info} offset={5} region={region} />
               </div>
             </CardContent>
           </Card>

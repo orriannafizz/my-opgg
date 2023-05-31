@@ -15,7 +15,7 @@ export default function Home() {
       />
 
       {summoner && (
-        <Link href={`summoner/${summoner.puuid}`}>
+        <Link href={`/summoner/${region}/${summoner.puuid}`}>
           <SummonerInfo summoner={summoner} />
         </Link>
       )}

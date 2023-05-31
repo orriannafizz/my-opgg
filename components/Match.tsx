@@ -8,6 +8,8 @@ import CardContent from '@mui/material/CardContent';
 import Image from 'next/image';
 import useChampionMap from '../hooks/championMap';
 import Items from './MatchInfo/Items';
+import Typography from '@mui/material/Typography';
+import Participants from './MatchInfo/Participants';
 interface MatchProps {
   summoner: Summoner | null;
   matchId: string;
@@ -21,7 +23,7 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
 
   const fetchMatch = () => {
     axios
-      .get(`/api/match`, {
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/match`, {
         params: {
           matchId,
         },
@@ -79,7 +81,7 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
     match && (
       <Grid container spacing={2} justifyContent='center'>
         <Grid item>
-          <Card className='mt-2 w-[800px] h-[120px] '>
+          <Card className='mt-2 2xl:w-[1000px] xl:w-[1000px] lg:w-[800px] md:w-[600px]  sm:w-[400px]   h-[120px] '>
             <div className='w-[130px]'>
               <CardHeader
                 action={<IconButton aria-label='' />}
@@ -113,7 +115,7 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
                   alt={match.info.participants[place!].championName as string}
                   className='rounded-full'></Image>
 
-                <div className='w-[150px] text-center mb-0'>
+                <div className='w-[150px] text-center mb-0 hidden sm:block'>
                   <p className=' font-semibold'>
                     {match.info.participants[place!].kills} /{' '}
                     {match.info.participants[place!].deaths} /{' '}
@@ -121,6 +123,8 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
                   </p>
                 </div>
                 <div>{items && <Items items={items}></Items>}</div>
+                <Participants info={match.info} offset={0} />
+                <Participants info={match.info} offset={5} />
               </div>
             </CardContent>
           </Card>

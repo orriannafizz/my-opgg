@@ -34,7 +34,7 @@ const SummonerInfo: React.FC<SummonerInfoProps> = ({ summoner }) => {
               {summoner.ranks[0] && (
                 <>
                   <CardContent>
-                    <div className='flex flex-col items-center'>
+                    <div className=' flex-col items-center hidden sm:block'>
                       <Image
                         src={`/rank/${summoner.ranks[0].tier}.png`}
                         alt={summoner.ranks[0].tier}
@@ -46,7 +46,7 @@ const SummonerInfo: React.FC<SummonerInfoProps> = ({ summoner }) => {
                     </div>
                   </CardContent>
                   <CardContent>
-                    <div className='flex flex-col items-start'>
+                    <div className='md:flex flex-col items-start hidden'>
                       <p>
                         Wins:{' '}
                         <span className='text-green-600'>

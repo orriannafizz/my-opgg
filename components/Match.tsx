@@ -6,11 +6,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardContent from '@mui/material/CardContent';
 import Image from 'next/image';
-import useChampionMap from '../hooks/championMap';
-import Items from './MatchInfo/Items';
-import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import Participants from './MatchInfo/Participants';
+
+import Items from '@/../components/MatchInfo/Items';
+import Participants from '@/../components/MatchInfo/Participants';
 interface MatchProps {
   summoner: Summoner | null;
   matchId: string;

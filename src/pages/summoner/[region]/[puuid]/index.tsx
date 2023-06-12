@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import SummonerPage from '../../../../../components/SummonerPage';
+import SummonerPage from '@/../components/SummonerPage';
 
 interface PageProps {
   summoner: Summoner | null;

@@ -1,6 +1,5 @@
-import SummonerInfo from './SummonerInfo';
-
-import Matches from './Matches';
+import SummonerInfo from '@/../components/SummonerInfo';
+import Matches from '@/../components/Matches';
 interface SummonerPageProps {
   summoner: Summoner | null;
   region: string;

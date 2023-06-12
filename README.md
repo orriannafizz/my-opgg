@@ -2,8 +2,13 @@
 
 ## Add api key
 
-```
+go to https://developer.riotgames.com/ and get api key
+
 add NEXT_PUBLIC_API_KEY in .env.local
+Example:
+
+```
+NEXT_PUBLIC_API_KEY=RGAPI-3e45a42e-0405-47e2-bad3-xxxxxxxxxxx
 ```
 
 ## Install Require Package

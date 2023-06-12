@@ -92,7 +92,11 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId, region }) => {
     match && (
       <Grid container spacing={2} justifyContent="center">
         <Grid item>
-          <Card className="mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] ">
+          <Card
+            className={`mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] ${
+              isWin ? 'bg-[#CCE8AD]' : 'bg-[#E4E4E4]'
+            }`}
+          >
             <div className="w-[130px]">
               <CardHeader
                 action={<IconButton aria-label="" />}

@@ -80,9 +80,9 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId, region }) => {
   }, [items]);
   if (!summoner || !match || place === undefined) {
     return (
-      <Grid container spacing={2} justifyContent='center'>
+      <Grid container spacing={2} justifyContent="center">
         <Grid item>
-          <Card className='flex justify-center mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] '>
+          <Card className="flex justify-center mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] ">
             <CircularProgress />
           </Card>
         </Grid>
@@ -91,47 +91,45 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId, region }) => {
   }
   return (
     match && (
-      <Grid container spacing={2} justifyContent='center'>
+      <Grid container spacing={2} justifyContent="center">
         <Grid item>
-          <Card className='mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] '>
-            <div className='w-[130px]'>
+          <Card className="mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] ">
+            <div className="w-[130px]">
               <CardHeader
-                action={<IconButton aria-label='' />}
+                action={<IconButton aria-label="" />}
                 title={match.info.gameMode}
                 subheader={
                   calculateTime(match.info.gameDuration).minutes +
                   ':' +
-                  (calculateTime(match.info.gameDuration).seconds < 10
-                    ? '0'
-                    : '') +
+                  (calculateTime(match.info.gameDuration).seconds < 10 ? '0' : '') +
                   calculateTime(match.info.gameDuration).seconds
                 }
               />
             </div>
             <CardContent>
-              <div className='flex flex-row items-center space-x-2'>
-                <div className='w-[40px]'>
+              <div className="flex flex-row items-center space-x-2">
+                <div className="w-[40px]">
                   {isWin ? (
-                    <p className='text-green-600'>WIN</p>
+                    <p className="text-green-600">WIN</p>
                   ) : (
-                    <p className='text-red-600'>LOSE</p>
+                    <p className="text-red-600">LOSE</p>
                   )}
                 </div>
 
                 <Image
                   src={`http://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/${
-                    match.info.participants[place!].championName ===
-                    'FiddleSticks'
+                    match.info.participants[place!].championName === 'FiddleSticks'
                       ? 'Fiddlesticks'
                       : match.info.participants[place!].championName
                   }.png`}
                   width={50}
                   height={50}
                   alt={match.info.participants[place!].championName as string}
-                  className='rounded-full'></Image>
+                  className="rounded-full"
+                ></Image>
 
-                <div className='w-[150px] text-center mb-0 hidden sm:block'>
-                  <p className=' font-semibold'>
+                <div className="w-[150px] text-center mb-0 hidden sm:block">
+                  <p className=" font-semibold">
                     {match.info.participants[place!].kills} /{' '}
                     {match.info.participants[place!].deaths} /{' '}
                     {match.info.participants[place!].assists}

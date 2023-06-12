@@ -15,12 +15,10 @@ const Page: React.FC<PageProps> = ({ summoner, region }) => {
     return null;
   }
 
-  return <SummonerPage summoner={summoner} />;
+  return <SummonerPage summoner={summoner} region={region} />;
 };
 
-export const getServerSideProps: GetServerSideProps<PageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
   const { puuid } = context.query;
   const region = context.query.region as string;
   try {
@@ -28,16 +26,13 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/summoner/by-puuid`,
       {
         params: { puuid, region },
-      }
+      },
     );
     const summonerData = res1.data;
 
-    const res2 = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/summoner/rank`,
-      {
-        params: { id: summonerData.id },
-      }
-    );
+    const res2 = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/summoner/rank`, {
+      params: { id: summonerData.id },
+    });
 
     const summoner = { ...summonerData, ranks: res2.data };
 

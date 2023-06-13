@@ -81,7 +81,7 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId, region }) => {
     return (
       <Grid container spacing={2} justifyContent="center">
         <Grid item>
-          <Card className="flex justify-center mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] ">
+          <Card className="flex justify-center mt-2 lg:w-[900px] md:w-[700px] sm:w-[500px] h-[120px] ">
             <CircularProgress />
           </Card>
         </Grid>
@@ -94,10 +94,10 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId, region }) => {
         <Grid item>
           <Card
             className={`mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] ${
-              isWin ? 'bg-[#CCE8AD]' : 'bg-[#E4E4E4]'
+              isWin ? 'bg-[#CCE8AD]' : 'bg-[#E4E4E4] rounded-lg'
             }`}
           >
-            <div className="w-[130px]">
+            <div className="w-[150px]">
               <CardHeader
                 action={<IconButton aria-label="" />}
                 title={match.info.gameMode}
@@ -111,7 +111,7 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId, region }) => {
             </div>
             <CardContent>
               <div className="flex flex-row items-center space-x-2">
-                <div className="w-[40px]">
+                <div className="w-[60px]">
                   {isWin ? (
                     <p className="text-green-600">WIN</p>
                   ) : (

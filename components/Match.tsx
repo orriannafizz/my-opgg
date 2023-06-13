@@ -6,16 +6,16 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardContent from '@mui/material/CardContent';
 import Image from 'next/image';
-import useChampionMap from '../hooks/championMap';
-import Items from './MatchInfo/Items';
-import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import Participants from './MatchInfo/Participants';
+
+import Items from '@/../components/MatchInfo/Items';
+import Participants from '@/../components/MatchInfo/Participants';
 interface MatchProps {
   summoner: Summoner | null;
   matchId: string;
+  region: string;
 }
-const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
+const Match: React.FC<MatchProps> = ({ summoner, matchId, region }) => {
   const [match, setMatch] = useState<Match | null>(null);
   const [place, setPlace] = useState<number | undefined>(0);
   const [team, setTeam] = useState<number | undefined>();
@@ -79,9 +79,9 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   }, [items]);
   if (!summoner || !match || place === undefined) {
     return (
-      <Grid container spacing={2} justifyContent='center'>
+      <Grid container spacing={2} justifyContent="center">
         <Grid item>
-          <Card className='flex justify-center mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] '>
+          <Card className="flex justify-center mt-2 lg:w-[900px] md:w-[700px] sm:w-[500px] h-[120px] ">
             <CircularProgress />
           </Card>
         </Grid>
@@ -90,55 +90,57 @@ const Match: React.FC<MatchProps> = ({ summoner, matchId }) => {
   }
   return (
     match && (
-      <Grid container spacing={2} justifyContent='center'>
+      <Grid container spacing={2} justifyContent="center">
         <Grid item>
-          <Card className='mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] '>
-            <div className='w-[130px]'>
+          <Card
+            className={`mt-2 lg:w-[800px] md:w-[600px] sm:w-[400px] h-[120px] ${
+              isWin ? 'bg-[#CCE8AD]' : 'bg-[#E4E4E4] rounded-lg'
+            }`}
+          >
+            <div className="w-[150px]">
               <CardHeader
-                action={<IconButton aria-label='' />}
+                action={<IconButton aria-label="" />}
                 title={match.info.gameMode}
                 subheader={
                   calculateTime(match.info.gameDuration).minutes +
                   ':' +
-                  (calculateTime(match.info.gameDuration).seconds < 10
-                    ? '0'
-                    : '') +
+                  (calculateTime(match.info.gameDuration).seconds < 10 ? '0' : '') +
                   calculateTime(match.info.gameDuration).seconds
                 }
               />
             </div>
             <CardContent>
-              <div className='flex flex-row items-center space-x-2'>
-                <div className='w-[40px]'>
+              <div className="flex flex-row items-center space-x-2">
+                <div className="w-[60px]">
                   {isWin ? (
-                    <p className='text-green-600'>WIN</p>
+                    <p className="text-green-600">WIN</p>
                   ) : (
-                    <p className='text-red-600'>LOSE</p>
+                    <p className="text-red-600">LOSE</p>
                   )}
                 </div>
 
                 <Image
                   src={`http://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/${
-                    match.info.participants[place!].championName ===
-                    'FiddleSticks'
+                    match.info.participants[place!].championName === 'FiddleSticks'
                       ? 'Fiddlesticks'
                       : match.info.participants[place!].championName
                   }.png`}
                   width={50}
                   height={50}
                   alt={match.info.participants[place!].championName as string}
-                  className='rounded-full'></Image>
+                  className="rounded-full"
+                ></Image>
 
-                <div className='w-[150px] text-center mb-0 hidden sm:block'>
-                  <p className=' font-semibold'>
+                <div className="w-[150px] text-center mb-0 hidden sm:block">
+                  <p className=" font-semibold">
                     {match.info.participants[place!].kills} /{' '}
                     {match.info.participants[place!].deaths} /{' '}
                     {match.info.participants[place!].assists}
                   </p>
                 </div>
                 <div>{items && <Items items={items}></Items>}</div>
-                <Participants info={match.info} offset={0} />
-                <Participants info={match.info} offset={5} />
+                <Participants info={match.info} offset={0} region={region} />
+                <Participants info={match.info} offset={5} region={region} />
               </div>
             </CardContent>
           </Card>

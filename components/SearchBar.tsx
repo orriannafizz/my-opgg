@@ -19,12 +19,7 @@ interface SummonerInfoProps {
   setRegion: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchBar: React.FC<SummonerInfoProps> = ({
-  summoner,
-  setSummoner,
-  region,
-  setRegion,
-}) => {
+const SearchBar: React.FC<SummonerInfoProps> = ({ summoner, setSummoner, region, setRegion }) => {
   const [searchName, setSearchName] = React.useState<string>('');
 
   const searchSummoner = (event: React.FormEvent) => {
@@ -57,10 +52,10 @@ const SearchBar: React.FC<SummonerInfoProps> = ({
   }, [region]);
 
   return (
-    <Grid container className='justify-center items-center'>
+    <Grid container className="justify-center items-center">
       <Grid item sm={6}>
         <form onSubmit={searchSummoner}>
-          <Stack spacing={2} direction='row' alignItems='center'>
+          <Stack spacing={2} direction="row" alignItems="center">
             <Select value={region} onChange={handleChange}>
               <MenuItem value={'TW2'}>Taiwan</MenuItem>
               <MenuItem value={'KR'}>Korea</MenuItem>
@@ -79,19 +74,19 @@ const SearchBar: React.FC<SummonerInfoProps> = ({
               <MenuItem value={'TR1'}>Turkey</MenuItem>
             </Select>
             <TextField
-              label='Summoner'
-              variant='outlined'
+              label="Summoner"
+              variant="outlined"
               value={searchName}
               fullWidth
               onChange={(e) => setSearchName(e.target.value)}
             />
-            <Button variant='outlined' type='submit'>
+            <Button variant="outlined" type="submit">
               Search
             </Button>
           </Stack>
         </form>
       </Grid>
-      <ToastContainer position='bottom-right' autoClose={3000} />
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </Grid>
   );
 };

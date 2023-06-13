@@ -6,7 +6,7 @@ export default function Home() {
   const [summoner, setSummoner] = useState<Summoner | null>(null);
   const [region, setRegion] = useState<string>('TW2');
   return (
-    <div className='mt-10 flex flex-col justify-center items-center'>
+    <div className="mt-10 flex flex-col justify-center items-center ">
       <SearchBar
         summoner={summoner}
         setSummoner={setSummoner}
@@ -15,7 +15,7 @@ export default function Home() {
       />
 
       {summoner && (
-        <Link href={`summoner/${summoner.puuid}`}>
+        <Link href={`/summoner/${region}/${summoner.puuid}`}>
           <SummonerInfo summoner={summoner} />
         </Link>
       )}

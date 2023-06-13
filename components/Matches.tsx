@@ -4,9 +4,10 @@ import Match from './Match';
 
 interface MatchesProps {
   summoner: Summoner | null;
+  region: string;
 }
 
-const Matches: React.FC<MatchesProps> = ({ summoner }) => {
+const Matches: React.FC<MatchesProps> = ({ summoner, region }) => {
   const [matches, setMatches] = useState<string[] | null>(null);
   const fetchMatches = () => {
     axios
@@ -32,10 +33,10 @@ const Matches: React.FC<MatchesProps> = ({ summoner }) => {
     console.log(matches);
   }, [matches]);
   return (
-    <div className='flex justify-center flex-col'>
+    <div className="flex justify-center flex-col">
       {matches &&
         matches.map((matchId: string) => (
-          <Match key={matchId} summoner={summoner} matchId={matchId} />
+          <Match key={matchId} summoner={summoner} matchId={matchId} region={region} />
         ))}
     </div>
   );

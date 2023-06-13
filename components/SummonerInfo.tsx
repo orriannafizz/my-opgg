@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,9 +13,9 @@ const SummonerInfo: React.FC<SummonerInfoProps> = ({ summoner }) => {
   return (
     <>
       {summoner && (
-        <Grid container spacing={2} justifyContent='center'>
+        <Grid container spacing={2} justifyContent="center">
           <Grid item>
-            <Card className='mt-10'>
+            <Card className="mt-10">
               <CardHeader
                 avatar={
                   <Image
@@ -27,38 +26,32 @@ const SummonerInfo: React.FC<SummonerInfoProps> = ({ summoner }) => {
                     priority
                   />
                 }
-                action={<IconButton aria-label='' />}
+                action={<IconButton aria-label="" />}
                 title={summoner.name}
                 subheader={`Lv. ${summoner.summonerLevel}`}
               />
               {summoner.ranks[0] && (
                 <>
                   <CardContent>
-                    <div className=' flex-col items-center hidden sm:block'>
+                    <div className=" flex-col items-center hidden sm:block">
                       <Image
                         src={`/rank/${summoner.ranks[0].tier}.png`}
                         alt={summoner.ranks[0].tier}
                         width={100}
-                        height={100}></Image>
+                        height={100}
+                      ></Image>
                       <p>
                         {summoner.ranks[0].tier} {summoner.ranks[0].rank}
                       </p>
                     </div>
                   </CardContent>
                   <CardContent>
-                    <div className='md:flex flex-col items-start hidden'>
+                    <div className="md:flex flex-col items-start hidden">
                       <p>
-                        Wins:{' '}
-                        <span className='text-green-600'>
-                          {summoner.ranks[0].wins}
-                        </span>
+                        Wins: <span className="text-green-600">{summoner.ranks[0].wins}</span>
                       </p>
                       <p>
-                        Losses:{' '}
-                        <span className=' text-red-500'>
-                          {' '}
-                          {summoner.ranks[0].losses}
-                        </span>
+                        Losses: <span className=" text-red-500"> {summoner.ranks[0].losses}</span>
                       </p>
                     </div>
                   </CardContent>

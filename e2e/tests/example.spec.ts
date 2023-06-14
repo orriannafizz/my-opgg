@@ -11,7 +11,7 @@ test('test right input', async ({ page, baseURL }) => {
   await page.getByLabel('Summoner').fill('Ricky1');
   await page.locator('role=button[name="Search"i]').click();
   await page.getByRole('link', { name: 'Ricky1' }).click();
-
+  await page.waitForNavigation();
   const url = page.url();
   const expectedStartOfURL = baseURL + '/summoner/TW2/';
   expect(url.startsWith(expectedStartOfURL)).toBe(true);
